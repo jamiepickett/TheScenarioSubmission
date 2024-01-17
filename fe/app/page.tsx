@@ -144,7 +144,7 @@ const page = () => {
 
   return (
     
-        <div className="px-4 py-6 sm:px-6 lg:pl-8 xl:flex-1 xl:pl-6">
+        <div className="w-1/2 mx-auto px-4 py-6 sm:px-6 lg:pl-8 xl:flex-1 xl:pl-6">
           <h3>ToDo List:</h3>
           <form onSubmit={(e) => postToDo(e)} className="mb-5">
             <div className="mt-2 flex rounded-md shadow-sm">

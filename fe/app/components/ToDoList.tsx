@@ -49,7 +49,7 @@ const ToDoList: React.FC<ToDoListProps> = ({ data, deleteFunc, updateFunc }) => 
     return (
         <ul onClick={(e: React.MouseEvent<HTMLUListElement, MouseEvent>) => handleClick(e)} className="">
 
-            {data.length ? (
+            {data.length > 0 ? (
                 data.map((todo, index) => (
 
                     <li key={index} data-uuid={todo._id} className='relative flex gap-x-4'>
@@ -75,8 +75,8 @@ const ToDoList: React.FC<ToDoListProps> = ({ data, deleteFunc, updateFunc }) => 
                             <p className="text-base text-gray-500 mb-2">{todo.data}</p>
 
                             <div className='flex gap-3'>
-                                <a href="#" className="text-sm underline" data-trigger_type="edit">Edit</a>
-                                <a href="#" className="text-sm underline" data-trigger_type="delete">Delete</a>
+                                <a href="#" className="text-sm underline text-blue-600" data-trigger_type="edit">Edit</a>
+                                <a href="#" className="text-sm underline text-blue-600" data-trigger_type="delete">Delete</a>
                             </div>
                         </div>
 
