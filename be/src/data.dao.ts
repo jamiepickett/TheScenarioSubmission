@@ -16,7 +16,7 @@ export class DataDao {
     }
     
     async getAll() {
-        return this.dataModel.find().sort('-updatedAt');
+        return this.dataModel.find().sort('-created');
     }
     
     async get(id: string) {
