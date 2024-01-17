@@ -1,9 +1,9 @@
 "use client";
 
-import { React, useEffect, useState } from 'react';
-import ToDoList from '@/components/ToDoList';
+import { useEffect, useState } from 'react';
+import ToDoList from './components/ToDoList';
 
-const page = ({ params }) => {
+const page = () => {
   const [allToDos, setAllToDos] = useState([]);
 
   //quickly create the calls to the rest api
@@ -27,7 +27,7 @@ const page = ({ params }) => {
       const getData = await response.json();
       console.log('Successfully called GET for:', getData);
       setAllToDos(getData);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error getting data:', error.message);
       throw error;
     }
@@ -35,11 +35,11 @@ const page = ({ params }) => {
 
 
   //Post
-  async function postToDo(event) {
+  async function postToDo(event: any) {
     event.preventDefault();
     console.info(event)
     const newTodo = document.getElementById('newtodo');
-    const newTodoValue = newTodo.value.trim();
+    const newTodoValue = newTodo instanceof HTMLInputElement ? newTodo.value.trim() : "";
 
     if (newTodoValue.length > 0) {
       //we are good to go and can move on
@@ -67,18 +67,21 @@ const page = ({ params }) => {
       }
 
       const postedData = await response.json();
-      newTodo.value = "";
+      if(newTodo){
+        newTodo instanceof HTMLInputElement ? newTodo.value = "" : "";
+      }
+      
       getToDos();
       // console.log('Data updated successfully:', postedData);
       // return postedData;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error updating data:', error.message);
       throw error;
     }
   }
 
   //Update
-  async function updateToDo(id, updatedText, targetElm) {
+  async function updateToDo(id: string, updatedText: string, targetElm: HTMLElement) {
     const apiUrl = `http://192.168.1.14:3000/data/${id}`;
 
     try {
@@ -101,14 +104,14 @@ const page = ({ params }) => {
       getToDos();
 
       // return updatedData;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error updating data:', error.message);
       throw error;
     }
   }
 
   //Delete
-  async function deleteToDo(id, targetElm) {
+  async function deleteToDo(id: string, targetElm: HTMLElement) {
     const apiUrl = `http://192.168.1.14:3000/data/${id}`;
 
     try {
@@ -128,7 +131,7 @@ const page = ({ params }) => {
         targetElm.remove();
       }
       // return deletedData; //not really needed in this setup
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error updating data:', error.message);
       throw error;
     }
