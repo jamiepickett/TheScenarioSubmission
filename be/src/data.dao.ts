@@ -14,19 +14,24 @@ export class DataDao {
     ) {
 
     }
+    
+    async getAll() {
+        return this.dataModel.find().sort('-updatedAt');
+    }
+    
     async get(id: string) {
         return this.dataModel.findById(id);
     }
 
-    async getAll() {
-        return this.dataModel.find();
+    async create(data: Data) {
+        return await this.dataModel.create(data);
     }
 
-    async create(data: Data) {
-        await this.dataModel.create(data);
+    async update(id: string, data: Data) {
+        return await this.dataModel.findOneAndUpdate({ _id: id }, data, {returnDocument: 'after'});
     }
 
     async delete(id: string) {
-        await this.dataModel.deleteOne({_id: id})
+        return await this.dataModel.deleteOne({_id: id})
     }
 }
